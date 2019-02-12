@@ -24,9 +24,9 @@
 
 <script>
   import TransferDom from 'vux/src/directives/transfer-dom/index.js'
-  import {mapGetters} from 'vuex'
-
-
+  import { mapGetters } from 'vuex'
+  import api from '../api/api'
+  import ding from '../lib/ding'
   export default {
     directives: {
       TransferDom
@@ -50,17 +50,55 @@
     },
     methods: {
       setRight() {
-        let dd = window.dd;
+        let dd = window.dd
         let _that = this;
-        dd.biz.navigation.setRight({
-          show: false,
-          control: false,
-          text: '',
-          onSuccess: function(result) {
-          },
-          onFail: function(err) {}
-        })
+        let rightBtn = {
+          text: '切换用户',
+          show: true, // 控制按钮显示， true 显示， false 隐藏， 默认true
+          control: true, // 是否控制点击事件，true 控制，false 不控制， 默认false
+          showIcon: true, // 是否显示icon，true 显示， false 不显示，默认true； 注：具体UI以客户端为准
+          onSuccess: function (result) {
+            api.getLogout(function (res) {
+              console.log(res)
+              dd.device.notification.prompt({
+                message: '请输入itcode',
+                title: '提示',
+                buttonLabels: ['确定', '取消'],
+                onSuccess: function (result) {
+                  console.log(result)
+                  console.log(_that.path)
+                  if (result.buttonIndex === 0) {
+                    ding.getRequestAuthCode(_that.path).then((data) => {
+                      api.getDebugLogin(data, result.value, function (res) {
+                        if (res.data.code) {
+                          _that.showPage = 1;
+                        } else {
+                          _that.showPage = 2;
+                        }
+                      })
+                    })
+                  }
+                },
+                onFail: function (err) {
+                }
+              });
+            })
+          }
+        }
+        ding.setRight(rightBtn)
       },
+      // setRight() {
+      //   let dd = window.dd;
+      //   let _that = this;
+      //   dd.biz.navigation.setRight({
+      //     show: true,
+      //     control: false,
+      //     text: '',
+      //     onSuccess: function(result) {
+      //     },
+      //     onFail: function(err) {}
+      //   })
+      // },
       goQueryContent() {
         this.$router.push('/qc')
       }
