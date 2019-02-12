@@ -1,0 +1,115 @@
+@import "../weui/base/mixin/setOnepx";
+.selectDate {
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  //padding: 10px 0;
+  height: 60px;
+  width: 100%;
+}
+.selectDate-group {
+  display: flex;
+  background-color: #ffffff;
+}
+.selectDate-group-date{
+  flex: 1;
+}
+.selectDate-group-span {
+  align-self: center;
+}
+.selectDateBtn {
+  display: inline-flex;
+  align-items: center;
+  padding: .2rem .6rem;
+  background-color: #3DBAEF;
+  color: #ffffff;
+  border-radius: 10px;
+}
+.selectDateBtn img{
+  width: 1.2rem;
+  height: 1.2rem;
+  padding-left: .6rem;
+}
+.selectDate-showDate {
+  position: relative;
+  padding: .5rem;
+  //padding-top: .3rem;
+  //padding-bottom: .1rem;
+  text-align: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #3DBAEF;
+}
+.selectDate-showDate div {
+  padding: .2rem;
+}
+.fade-enter-active {
+  transition: all .5s ease;
+}
+.fade-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.fade-enter, .fade-leave-to {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+.checker {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.checker:before {
+  content: " ";
+  position: absolute;
+  left: 15px;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #D9D9D9;
+  color: #D9D9D9;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+.checker-item {
+  flex: 1;
+  margin: 0 8px 15px 8px;
+  height: 50px;
+  line-height: 50px;
+  background: #f4f4f4;
+  border-radius: 8px;
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+}
+.checker-item-selected {
+  //background: #e5f2fc;
+  //color: #4da9eb;
+  background: #dcf6ef;
+  color: #17c295
+}
+.groupTitle {
+  margin-top: 10px;
+  color: #38ADFF;
+}
+.cyspan {
+  width: 39px;
+  height: 39px;
+  line-height: 39px;
+  float: left;
+  margin: 10px;
+  font-size: .8rem;
+  text-align: center;
+  border-radius: 50%;
+  color: #000000;
+  border: 1px solid @theme-color;
+}
+.cytitle {
+  padding: 10px 15px 5px 15px;
+}
