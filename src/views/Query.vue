@@ -3,7 +3,9 @@
     <transition name="fade">
       <div class="selectDate">
         <div class="selectDate-showDate" @click="goQueryContent">
-          {{title}}
+          <button>
+            {{title}}
+          </button>
         </div>
       </div>
     </transition>

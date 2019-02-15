@@ -22,6 +22,7 @@ import TabbarItem from 'vux/src/components/tabbar/tabbar-item.vue'
 import Flexbox from 'vux/src/components/flexbox/flexbox.vue'
 import FlexboxItem from 'vux/src/components/flexbox/flexbox-item.vue'
 import Box from 'vux/src/components/box/index.vue'
+import Toast from 'vux/src/components/toast/index.vue'
 // import ding from '@/lib/ding'
 
 Vue.config.productionTip = false
@@ -43,12 +44,14 @@ Vue.component('flexbox-item', FlexboxItem)
 Vue.component('Box', Box)
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
-
+Vue.component('toast', Toast)
 //
 store.dispatch('saveURL', location.href)
 store.dispatch('saveDingTalkCode')
 
 ding.ddLogin(location.href).then(data => {
+  // console.log(data);
+  // alert(1)
   initVue()
 }).catch((err) => {
   let dd = window.dd

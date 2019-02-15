@@ -11,8 +11,9 @@ function resolve (dir) {
 
 module.exports = {
   // baseUrl: '/rctb/',
-  lintOnSave: true,
+  lintOnSave: false,
   devServer: {
+    // port: 10086,
     disableHostCheck: true
   },
   chainWebpack: config => {

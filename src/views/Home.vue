@@ -3,6 +3,7 @@
     <transition name="fade">
       <div class="selectDate">
         <div class="selectDate-showDate">
+          <!--<div @click="getDate(begin, end)">{{begin + '至' + end}}</div>-->
           <div @click="showDate = !showDate">{{begin + ' 至 ' + end}}</div>
           <!--<img src="@/assets/images/zk.png" @click="showRctb = true" v-if="showRctb === false">-->
           <!--<img src="@/assets/images/zd.png" @click="showRctb = false" v-else-if="showRctb === true">-->
@@ -78,7 +79,7 @@
         <span slot="label">统计</span>
       </tabbar-item>
     </tabbar>
-
+    <toast v-model="showPositionValue" type="text" :time="800" is-show-mask :text="toastmsg" position="middle">{{toastmsg}}</toast>
   </div>
 </template>
 
@@ -126,7 +127,9 @@
         personArr: [],
         pickedUsers: [], // 控件已选择的人
         userlist: [], // 请求的人
-        dailytypeList: null
+        dailytypeList: null,
+        showPositionValue: false,
+        toastmsg: ''
       }
     },
     watch: {
@@ -200,9 +203,16 @@
         p.dailyapp = dailyapp
         p.dailyinfos = _that.tbdata
         api.saveDaily(JSON.stringify(p), res => {
-          if (res.data.code) {
-            ding.showToast(res.data.data.message)
+          if (res.data.code && flag === 0) {
+            _that.toastmsg = '保存成功'
+            _that.showPositionValue = true
             _that.getDailyInfosByUseidAndSdateAndEdate(_that.begin, _that.end)
+          } else if (res.data.code && flag === 1) {
+            _that.toastmsg = '提报成功'
+            _that.showPositionValue = true
+            _that.getDailyInfosByUseidAndSdateAndEdate(_that.begin, _that.end)
+          } else {
+            _that.toastmsg = res.data.message
           }
         })
       },
@@ -212,20 +222,24 @@
         let _that = this
         api.getDailyInfosByUseidAndSdateAndEdate(dateStr, dateEnd, res => {
 //          ding.hidePreloader()
-          if (res.data.code) {
+          if (res.data.code) { // 判断提报人是否为空
             _that.dailytypeList = res.data.data.dailytypeList
             let ddidmap = res.data.data.ddidmap
-            for (let dtl of _that.dailytypeList) {
-              let xpersonArr = dtl.xperson.split(',')
-              let xpersonTxtArr = dtl.xpersontxt.split(',')
-              for (let xp in xpersonArr) {
-                if (_that.pickedUsers.indexOf(ddidmap[xpersonArr[xp]]) < 0) {
-                  _that.pickedUsers.push(ddidmap[xpersonArr[xp]])
-                  let user = {}
-                  user.itcode = xpersonArr[xp]
-                  user.emplId = ddidmap[xpersonArr[xp]]
-                  user.name = xpersonTxtArr[xp]
-                  _that.userlist.push(user)
+            if (JSON.stringify(ddidmap) === {} || JSON.stringify(ddidmap) === '{}') {
+              _that.userlist = []
+            } else {
+              for (let dtl of _that.dailytypeList) {
+                let xpersonArr = dtl.xperson.split(',')
+                let xpersonTxtArr = dtl.xpersontxt.split(',')
+                for (let xp in xpersonArr) {
+                  if (_that.pickedUsers.indexOf(ddidmap[xpersonArr[xp]]) < 0) {
+                    _that.pickedUsers.push(ddidmap[xpersonArr[xp]])
+                    let user = {}
+                    user.itcode = xpersonArr[xp]
+                    user.emplId = ddidmap[xpersonArr[xp]]
+                    user.name = xpersonTxtArr[xp]
+                    _that.userlist.push(user)
+                  }
                 }
               }
             }
@@ -249,10 +263,47 @@
           }
         }
       },
+      getDate (begin, end) {
+        let dd = window.dd
+        dd.biz.calendar.chooseInterval({
+          defaultStart: new Date(begin).getTime(),
+          defaultEnd: new Date(end).getTime(),
+          onSuccess: function(result) {
+            // onSuccess将在点击确定之后回调
+            /*
+            {
+                start: 1514908800000,
+                end: 1514995200000,
+                timezone:8
+            }
+            */
+          },
+          onFail: function(err) {}
+        })
+      },
       getBetweenDate(begin, end) {
+        let _that = this
+        let format = 'YYYY-MM-DD'
+        let nowday = dayjs(_that.begin).diff(dayjs(), 'day')
+        if (nowday < 0) {
+          alert('开始时间应大于等于当前时间')
+          _that.begin = dayjs().format(format)
+          begin = _that.begin
+        }
+        let daydiff = dayjs(end).diff(dayjs(begin), 'day')
+        if (daydiff < 0) {
+          alert('结束日期要大于开始日期')
+          _that.begin = dayjs().format(format)
+          begin = _that.begin
+          _that.end = dayjs(_that.begin).add(6, 'day').format(format)
+          end = _that.end
+        }
+        if (daydiff > 31) {
+          _that.end = dayjs(_that.begin).add(30, 'day').format(format)
+          end = _that.end
+        }
         let result = []
         let betweenDates = utils.getDaysBetween(begin, end)
-
         for (let d of betweenDates) {
           let item = {}
           if (this.tbdata.length > 0) {
@@ -282,10 +333,10 @@
             item.flag = ''
             result.push(item)
           }
-
         }
         this.tbdata = result
         this.getHistoryData()
+        this.getDailyInfosByUseidAndSdateAndEdate(begin, end)
       },
       fz(item, index) {
         let info = JSON.parse(JSON.stringify(item))
@@ -383,6 +434,9 @@
     },
     filters: {
       getName(data) {
+        if (data.indexOf('-') > 0) {
+          data = data.split('-')[0]
+        }
         return data.substr(data.length - 2)
       }
     }

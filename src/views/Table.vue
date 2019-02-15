@@ -9,21 +9,23 @@
       align="center"
       prop="date"
       label="日期"
-      width="100">
+      :width=twidth1>
     </el-table-column>
     <el-table-column height="20" :label="a.name" align="center" :key="i"  v-for="(a, i) in tableValues">
       <el-table-column
         v-for="(c, index) in a.type"
         :key="index"
         align="center"
-        :label="c">
+        :label="c"
+        :width=twidth2
+      >
         <template slot-scope="scope">
           {{scope.row[a.key][index]}}
         </template>
       </el-table-column>
     </el-table-column>
   </el-table>
-  <p v-else style="margin-top: 70px; text-align: center; font-size: 20px">暂无数据</p>
+  <p v-else style="margin-top: 70px; text-align: center; font-size: 20px; width: 100vw;">暂无数据</p>
 </template>
 
 <script>
@@ -41,6 +43,9 @@
     data() {
       return {
         height: 250,
+        width: '',
+        twidth1: '',
+        twidth2: '',
         dailytypeList: null,
         tableValues: [
 //          {
@@ -77,6 +82,11 @@
     },
     created() {
       this.height = window.innerHeight - 60 - 20
+      this.width = window.innerWidth
+      this.twidth1 = this.width / 10 * 3
+      this.twidth2 = this.width / 10 * 7 / 3
+      console.log(this.twidth)
+      console.log(this.width)
       this.getReportDailyInfos()
     },
     methods: {
