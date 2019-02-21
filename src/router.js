@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '@/store'
 import ding from '@/lib/ding'
-import base from '@/api/baseConfig'
+// import store from '@/store'
+// import base from '@/api/baseConfig'
 
 Vue.use(Router);
 
@@ -25,10 +25,6 @@ const scrollBehavior = (to, from, savedPosition) => {
   }
 }
 
-// title: '',
-// pullToRefresh: true,
-// ddConfig: true
-
 const router = new Router({
   // base: '/rctb/',
   mode: 'history',
@@ -37,6 +33,13 @@ const router = new Router({
     {
       path: '/',
       component: () => import('@/views/Home'),
+      meta: {
+        ddConfig: true
+      }
+    },
+    {
+      path: '/h',
+      component: () => import('@/views/HomePage'),
       meta: {
         ddConfig: true
       }

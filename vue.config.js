@@ -13,7 +13,7 @@ module.exports = {
   // baseUrl: '/rctb/',
   lintOnSave: false,
   devServer: {
-    // port: 10086,
+    port: 8989,
     disableHostCheck: true
   },
   chainWebpack: config => {

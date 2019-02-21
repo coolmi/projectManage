@@ -4,7 +4,7 @@
       <div class="selectDate">
         <div class="selectDate-showDate">
           <!--<div @click="getDate(begin, end)">{{begin + '至' + end}}</div>-->
-          <div @click="showDate = !showDate">{{begin + ' 至 ' + end}}</div>
+          <div @click="showDate = !showDate">{{begin + ' 至 dee' + end}}</div>
           <!--<img src="@/assets/images/zk.png" @click="showRctb = true" v-if="showRctb === false">-->
           <!--<img src="@/assets/images/zd.png" @click="showRctb = false" v-else-if="showRctb === true">-->
         </div>
