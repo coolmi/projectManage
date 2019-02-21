@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import api from '@/api/api'
+// import api from '@/api/api'
 import ding from '@/lib/ding'
 import { Table, TableColumn } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css'
@@ -23,28 +23,39 @@ import Flexbox from 'vux/src/components/flexbox/flexbox.vue'
 import FlexboxItem from 'vux/src/components/flexbox/flexbox-item.vue'
 import Box from 'vux/src/components/box/index.vue'
 import Toast from 'vux/src/components/toast/index.vue'
-// import ding from '@/lib/ding'
+import Sticky from 'vux/src/components/sticky/index.vue'
+import Tab from 'vux/src/components/tab/tab.vue'
+import tabItem from 'vux/src/components/tab/tab-item.vue'
+import Swipeout from 'vux/src/components/swipeout/swipeout.vue'
+import SwipeoutItem from 'vux/src/components/swipeout/swipeout-item.vue'
+import SwipeoutButton from 'vux/src/components/swipeout/swipeout-button.vue'
 
 Vue.config.productionTip = false
-Vue.component('datetime-view', DatetimeView)
-Vue.component('datetime', Datetime)
-Vue.component('x-input', XInput)
-Vue.component('cell', Cell)
-Vue.component('tabbar', Tabbar)
-Vue.component('tabbar-item', TabbarItem)
-Vue.component('x-textarea', XTextarea)
-Vue.component('x-button', XButton)
-Vue.component('checker', Checker)
-Vue.component('checker-item', CheckerItem)
-Vue.component('group', Group)
-Vue.component('group-title', GroupTitle)
-Vue.component('popup', Popup)
-Vue.component('flexbox', Flexbox)
-Vue.component('flexbox-item', FlexboxItem)
-Vue.component('Box', Box)
+Vue.component('datetime-view', DatetimeView);
+Vue.component('datetime', Datetime);
+Vue.component('x-input', XInput);
+Vue.component('cell', Cell);
+Vue.component('tabbar', Tabbar);
+Vue.component('tabbar-item', TabbarItem);
+Vue.component('x-textarea', XTextarea);
+Vue.component('x-button', XButton);
+Vue.component('checker', Checker);
+Vue.component('checker-item', CheckerItem);
+Vue.component('group', Group);
+Vue.component('group-title', GroupTitle);
+Vue.component('popup', Popup);
+Vue.component('flexbox', Flexbox);
+Vue.component('flexbox-item', FlexboxItem);
+Vue.component('Box', Box);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
-Vue.component('toast', Toast)
+Vue.component('toast', Toast);
+Vue.component('tab', Tab);
+Vue.component('tab-item', tabItem);
+Vue.component('sticky', Sticky);
+Vue.component('swipeout', Swipeout);
+Vue.component('swipeout-item', SwipeoutItem);
+Vue.component('swipeout-button', SwipeoutButton);
 //
 store.dispatch('saveURL', location.href)
 store.dispatch('saveDingTalkCode')
