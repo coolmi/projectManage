@@ -1,7 +1,7 @@
 <template>
   <div class="page_">
-    <!--<selector class="sele" placeholder="请选择" title="产品*" :options="Plist" v-model="product"></selector>-->
-    <!--<datetime class="dat" v-model="time" title="接收时间*"></datetime>-->
+    <selector class="sele" placeholder="请选择" title="产品*" :options="Plist" v-model="product"></selector>
+    <datetime class="dat" v-model="time" title="接收时间*"></datetime>
     <x-textarea :max="20" placeholder="请输入简述" v-model="describes" title="简述"></x-textarea>
     <x-textarea :max="20" placeholder="请输入问题描述" v-model="describes" title="问题描述"></x-textarea>
     <x-textarea :max="20" placeholder="请输入解决方案" v-model="describes" title="解决方案"></x-textarea>
