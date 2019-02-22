@@ -23,17 +23,16 @@ import Flexbox from 'vux/src/components/flexbox/flexbox.vue'
 import FlexboxItem from 'vux/src/components/flexbox/flexbox-item.vue'
 import Box from 'vux/src/components/box/index.vue'
 import Toast from 'vux/src/components/toast/index.vue'
-import Sticky from 'vux/src/components/sticky/index.vue'
-import Tab from 'vux/src/components/tab/tab.vue'
-import tabItem from 'vux/src/components/tab/tab-item.vue'
+
 import Swipeout from 'vux/src/components/swipeout/swipeout.vue'
 import SwipeoutItem from 'vux/src/components/swipeout/swipeout-item.vue'
 import SwipeoutButton from 'vux/src/components/swipeout/swipeout-button.vue'
+import ButtonTab from 'vux/src/components/button-tab/button-tab.vue'
+import ButtonTabItem from 'vux/src/components/button-tab/button-tab-item.vue'
+import Selector from 'vux/src/components/selector/index.vue'
+import XSwitch from 'vux/src/components/x-switch/index.vue'
 
 Vue.config.productionTip = false
-Vue.component('datetime-view', DatetimeView);
-Vue.component('datetime', Datetime);
-Vue.component('x-input', XInput);
 Vue.component('cell', Cell);
 Vue.component('tabbar', Tabbar);
 Vue.component('tabbar-item', TabbarItem);
@@ -50,12 +49,16 @@ Vue.component('Box', Box);
 Vue.component(Table.name, Table);
 Vue.component(TableColumn.name, TableColumn);
 Vue.component('toast', Toast);
-Vue.component('tab', Tab);
-Vue.component('tab-item', tabItem);
-Vue.component('sticky', Sticky);
 Vue.component('swipeout', Swipeout);
 Vue.component('swipeout-item', SwipeoutItem);
 Vue.component('swipeout-button', SwipeoutButton);
+Vue.component('button-tab', ButtonTab);
+Vue.component('button-tab-item', ButtonTabItem);
+Vue.component('selector', Selector);
+Vue.component('x-switch', XSwitch);
+Vue.component('datetime-view', DatetimeView);
+Vue.component('datetime', Datetime);
+Vue.component('x-input', XInput);
 //
 store.dispatch('saveURL', location.href)
 store.dispatch('saveDingTalkCode')

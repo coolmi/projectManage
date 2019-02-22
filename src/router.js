@@ -38,6 +38,13 @@ const router = new Router({
       }
     },
     {
+      path: '/Appraise',
+      component: () => import('@/views/Appraise'),
+      meta: {
+        ddConfig: true
+      }
+    },
+    {
       path: '/h',
       component: () => import('@/views/HomePage'),
       meta: {
